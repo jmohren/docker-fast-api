@@ -12,7 +12,7 @@ jobs:
 
       - name: Docker build img
         run: |
-          docker build -t python-fastapi .
+          docker build -t docker-fast-api .
         shell: bash
       -
         name: Login to Docker Hub
