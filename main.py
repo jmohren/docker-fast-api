@@ -4,6 +4,7 @@ import uvicorn
 from pydantic import BaseModel, create_model
 import pickle 
 import numpy as np
+import json
 
 pickled_model = pickle.load(open('model/iso_forest_model.sav', 'rb'))
 
@@ -27,8 +28,9 @@ async def read_root():
 
 @app.post("/predict")
 def predict(input: Input):
+    # X = request.get_json()['X']
     pred=int(pickled_model.predict(np.array([list(dict(input).values())])))
-    return {"pred": pred}
+    return json.dumps({"pred": pred}), 200
 
 if __name__ == '__main__':
     uvicorn.run(app, port=8000, host="0.0.0.0")
